@@ -1,14 +1,12 @@
 import { Paper, TextField } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const SearchBar = props => {
     const dispatch = useDispatch();
     return (
         <Paper>
-            <TextField id="standard-basic" label="Search Movies..." onKeyPress={e => {
-                if (e.key === 'Enter') {
-                    dispatch(props.search(e.target.value));
-                }
+            <TextField id="standard-basic" label="Search Movies..." onChange={e => {
+                dispatch(props.search(e.target.value.trim(), 1));
             }}/>
         </Paper>
     )
