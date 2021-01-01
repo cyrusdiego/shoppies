@@ -16,8 +16,7 @@ export const NOMINATION = 'nomination';
 
 export const App = () => {
   const searchResults = useSelector((state) => state.searchResults);
-  const nominationList = useSelector((state) => state.nominations);
-  const nominationCount = useSelector((state) => state.nominationCount);
+  const nominations = useSelector((state) => state.nominations);
   const dispatch = useDispatch();
 
   const searchResultActions = {
@@ -48,11 +47,15 @@ export const App = () => {
     <div className='App'>
       <SearchBar search={searchMovieAsync} />
       <Grid container direction='row' justify='center' alignItems='stretch'>
-        <MoviePage movies={searchResults} actions={searchResultActions} />
-        <MovieList movies={nominationList} actions={nominationActions} />
+        {searchResults && searchResults.length > 0 && (
+          <MoviePage movies={searchResults} actions={searchResultActions} />
+        )}
+        {nominations && nominations.length > 0 && (
+          <MovieList movies={nominations} actions={nominationActions} />
+        )}
       </Grid>
       <Snackbar
-        open={nominationCount === 5}
+        open={nominations.length === 5}
         autoHideDuration={6000}
         handleClose={() => handleClose()}
       >

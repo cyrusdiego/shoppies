@@ -19,9 +19,7 @@ export const MoviePage = ({ movies, actions }) => {
     dispatch(searchMovieAsync(searchString, page));
   }, [page]);
 
-  return movies === undefined || movies.length === 0 ? (
-    <p>No Results</p>
-  ) : (
+  return (
     <div>
       <MovieList movies={movies} actions={actions} />
       <Pagination count={totalPage} page={page} onChange={onPageChange} />

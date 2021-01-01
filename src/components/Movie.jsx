@@ -1,30 +1,17 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActionArea,
-} from '@material-ui/core';
-import { MovieActions } from './MovieActions';
+import { Box, CardContent, CardMedia, Typography } from '@material-ui/core';
 
-export const Movie = ({ movie, actions, isActionVisible }) => {
+export const Movie = ({ movie }) => {
   return (
-    <Box margin='15%'>
-      <Card>
-        <CardMedia component='img' height='auto' image={movie.Poster} />
-        <CardActionArea>
-          <CardContent>
-            <Typography gutterBottom variant='h5' component='h2'>
-              {movie.Title}
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {movie.Year}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        {isActionVisible && <MovieActions movie={movie} actions={actions} />}
-      </Card>
+    <Box>
+      <CardMedia component='img' height='auto' image={movie.Poster} />
+      <CardContent>
+        <Typography gutterBottom variant='h5' component='h2'>
+          {movie.Title}
+        </Typography>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {movie.Year}
+        </Typography>
+      </CardContent>
     </Box>
   );
 };

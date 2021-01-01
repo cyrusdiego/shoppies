@@ -8,7 +8,6 @@ import {
 const initialState = {
   searchResults: [],
   nominations: [],
-  nominationCount: 0,
   searchString: '',
   total: 0,
 };
@@ -25,7 +24,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         nominations: [...state.nominations, action.payload],
-        nominationCount: state.nominationCount + 1,
       };
     case REMOVE_NOMINATION:
       return {
@@ -33,7 +31,6 @@ export const reducer = (state = initialState, action) => {
         nominations: state.nominations.filter(
           (movie) => movie !== action.payload
         ),
-        nominationCount: state.nominationCount - 1,
       };
     case SEARCH_STRING:
       return { ...state, searchString: action.payload, total: 0 };
