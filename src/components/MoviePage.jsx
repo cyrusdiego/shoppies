@@ -6,25 +6,25 @@ import { searchMovieAsync } from '../redux/actions';
 import { useEffect } from 'react';
 
 export const MoviePage = ({ movies, actions }) => {
-    const [page, setPage] = useState(1);
-    const searchString = useSelector(state => state.searchString);
-    const totalPage = useSelector(state => Math.ceil(state.total / 10));
-    const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  const searchString = useSelector((state) => state.searchString);
+  const totalPage = useSelector((state) => Math.ceil(state.total / 10));
+  const dispatch = useDispatch();
 
-    const onPageChange = () => {
-        setPage(page + 1);
-    }
+  const onPageChange = () => {
+    setPage(page + 1);
+  };
 
-    useEffect(() => {
-        dispatch(searchMovieAsync(searchString, page));
-    }, [page]);
+  useEffect(() => {
+    dispatch(searchMovieAsync(searchString, page));
+  }, [page]);
 
-    return (
-        movies === undefined || movies.length === 0 ? <p>No Results</p> :
-        <div>
-            <MovieList movies={movies} actions={actions} />
-            <Pagination count={totalPage} page={page} onChange={onPageChange} />
-        </div>
-        
-    );
-}
+  return movies === undefined || movies.length === 0 ? (
+    <p>No Results</p>
+  ) : (
+    <div>
+      <MovieList movies={movies} actions={actions} />
+      <Pagination count={totalPage} page={page} onChange={onPageChange} />
+    </div>
+  );
+};
