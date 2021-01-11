@@ -27,8 +27,8 @@ export const getMoviesRequest = (searchString) => ({
 const getMoviesSuccess = (results, totalResults) => ({
   type: GET_MOVIES_SUCCESS,
   payload: {
-    movies: results,
-    total: totalResults,
+    movies: results || [],
+    total: totalResults || 0,
   },
 });
 

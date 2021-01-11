@@ -1,11 +1,10 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchMovieAsync } from '../redux/actions';
+import { addNomination, searchMovieAsync } from '../redux/actions';
 import { splitToChunks } from '../utils';
 import { Movie } from './Movie';
-import { addNomination } from '../redux/actions';
 
 export const MoviePage = () => {
   const movies = useSelector((state) => state.movies);
@@ -48,7 +47,7 @@ export const MoviePage = () => {
     );
   };
 
-  return movies && movies.length > 0 ? (
+  return movies && searchString.length > 0 ? (
     <Grid
       container
       direction='column'
@@ -56,23 +55,29 @@ export const MoviePage = () => {
       justify='center'
       spacing={2}
     >
-      <Grid container item spacing={1}>
-        {movieRows.map((row, i) => (
-          <Grid
-            container
-            item
-            spacing={1}
-            justify='center'
-            alignItems='center'
-            key={i}
-          >
-            <MovieRow row={row} />
+      {movies.length > 0 ? (
+        <Grid container item spacing={2}>
+          {movieRows.map((row, i) => (
+            <Grid
+              container
+              item
+              spacing={2}
+              justify='center'
+              alignItems='center'
+              key={i}
+            >
+              <MovieRow row={row} />
+            </Grid>
+          ))}
+          <Grid item container justify='center' alignItems='center'>
+            <Pagination count={totalPage} page={page} onChange={onPageChange} />
           </Grid>
-        ))}
-      </Grid>
-      <Grid item>
-        <Pagination count={totalPage} page={page} onChange={onPageChange} />
-      </Grid>
+        </Grid>
+      ) : (
+        <Grid item>
+          <Typography> No Results</Typography>
+        </Grid>
+      )}
     </Grid>
   ) : null;
 };
