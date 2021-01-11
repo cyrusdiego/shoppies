@@ -1,66 +1,75 @@
-import { useSelector, useDispatch } from 'react-redux';
-import './App.css';
+import {
+  CssBaseline,
+  Grid,
+  ThemeProvider,
+  Typography,
+  Snackbar,
+  IconButton,
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import { Alert } from '@material-ui/lab';
+import { useDispatch, useSelector } from 'react-redux';
+import { MoviePage } from './components/MoviePage';
 import SearchBar from './components/SearchBar';
-import { MovieList } from './components/MovieList';
 import {
   addNomination,
+  getMoviesRequest,
   removeNomination,
-  searchMovieAsync,
 } from './redux/actions';
-import { Grid, Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import { MoviePage } from './components/MoviePage';
-
-export const SEARCH_RESULTS = 'search_results';
-export const NOMINATION = 'nomination';
+import { theme, useStyles } from './styles';
+import React, { useState, useEffect } from 'react';
 
 export const App = () => {
-  const searchResults = useSelector((state) => state.searchResults);
-  const nominations = useSelector((state) => state.nominations);
+  const showNotification = useSelector(
+    (state) => state.nominations.length === 5
+  );
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const classes = useStyles();
 
-  const searchResultActions = {
-    type: SEARCH_RESULTS,
-    button: {
-      text: 'Nominate',
-      onClick: (movie) => {
-        dispatch(addNomination(movie));
-      },
-    },
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
   };
 
-  const nominationActions = {
-    type: NOMINATION,
-    button: {
-      text: 'Remove nomination',
-      onClick: (movie) => {
-        dispatch(removeNomination(movie));
-      },
-    },
-  };
+  const onSearch = (searchString) => dispatch(getMoviesRequest(searchString));
 
-  const handleClose = () => {
-    return;
-  };
+  useEffect(() => {
+    setOpen(showNotification);
+  }, [showNotification]);
 
   return (
-    <div className='App'>
-      <SearchBar search={searchMovieAsync} />
-      <Grid container direction='row' justify='center' alignItems='stretch'>
-        {searchResults && searchResults.length > 0 && (
-          <MoviePage movies={searchResults} actions={searchResultActions} />
-        )}
-        {nominations && nominations.length > 0 && (
-          <MovieList movies={nominations} actions={nominationActions} />
-        )}
-      </Grid>
-      <Snackbar
-        open={nominations.length === 5}
-        autoHideDuration={6000}
-        handleClose={() => handleClose()}
-      >
-        <Alert severity='success'>Nominated 5 Movies!</Alert>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className={classes.root}>
+        <Grid
+          container
+          spacing={4}
+          direction='column'
+          alignItems='center'
+          justify='center'
+          style={{ minHeight: '100vh' }}
+        >
+          <Grid item container xs={6} alignItems='center' spacing={2}>
+            <Grid item xs={12}>
+              <Typography className={classes.header}>The Shoppies</Typography>
+              <SearchBar onSearch={onSearch} />
+            </Grid>
+          </Grid>
+          <Grid item container xs={12}>
+            <Grid item>
+              <MoviePage />
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert severity='success' onClose={handleClose}>
+          Nominated 5 Movies!
+        </Alert>
       </Snackbar>
-    </div>
+    </ThemeProvider>
   );
 };

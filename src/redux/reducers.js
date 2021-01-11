@@ -1,30 +1,48 @@
 import {
-  MOVIE_RESULTS,
   ADD_NOMINATION,
+  GET_MOVIES_FAILURE,
+  GET_MOVIES_REQUEST,
+  GET_MOVIES_SUCCESS,
   REMOVE_NOMINATION,
-  SEARCH_STRING,
 } from './actions';
 
 const initialState = {
-  searchResults: [],
+  movies: [],
   nominations: [],
   searchString: '',
-  total: 0,
+  total: -1,
+  error: {},
+  isLoading: false,
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case MOVIE_RESULTS:
+    case GET_MOVIES_SUCCESS:
       return {
         ...state,
-        searchResults: action.payload.movies,
+        movies: action.payload.movies,
         total: action.payload.total,
+        error: {},
+        isLoading: false,
       };
+
+    case GET_MOVIES_REQUEST:
+      return {
+        ...state,
+        searchString: action.payload,
+        total: 0,
+        isLoading: true,
+      };
+
+    case GET_MOVIES_FAILURE:
+      return { ...state, error: action.payload, isLoading: false };
+
     case ADD_NOMINATION:
       return {
         ...state,
         nominations: [...state.nominations, action.payload],
       };
+
     case REMOVE_NOMINATION:
       return {
         ...state,
@@ -32,8 +50,7 @@ export const reducer = (state = initialState, action) => {
           (movie) => movie !== action.payload
         ),
       };
-    case SEARCH_STRING:
-      return { ...state, searchString: action.payload, total: 0 };
+
     default:
       return state;
   }

@@ -1,17 +1,13 @@
 import axios from 'axios';
 
-export const MOVIE_RESULTS = 'movie_results';
+export const GET_MOVIES_REQUEST = 'get_movies_request';
+export const GET_MOVIES_SUCCESS = 'get_movies_success';
+export const GET_MOVIES_FAILURE = 'get_movie_failure';
 export const ADD_NOMINATION = 'add_nomination';
 export const REMOVE_NOMINATION = 'remove_nomination';
-export const SEARCH_STRING = 'search_string';
 
-const movieResults = (results, totalResults) => ({
-  type: MOVIE_RESULTS,
-  payload: {
-    movies: results,
-    total: totalResults,
-  },
-});
+const BASE_URL = 'http://www.omdbapi.com';
+const API_KEY = '72d02239';
 
 export const addNomination = (movie) => ({
   type: ADD_NOMINATION,
@@ -23,25 +19,39 @@ export const removeNomination = (movie) => ({
   payload: movie,
 });
 
-export const setSearchString = (searchString) => ({
-  type: SEARCH_STRING,
+export const getMoviesRequest = (searchString) => ({
+  type: GET_MOVIES_REQUEST,
   payload: searchString,
+});
+
+const getMoviesSuccess = (results, totalResults) => ({
+  type: GET_MOVIES_SUCCESS,
+  payload: {
+    movies: results,
+    total: totalResults,
+  },
+});
+
+const getMoviesFailure = (error) => ({
+  type: GET_MOVIES_FAILURE,
+  payload: error,
 });
 
 export const searchMovieAsync = (searchString, page) => {
   return (dispatch) => {
     axios
-      .get('http://www.omdbapi.com', {
+      .get(BASE_URL, {
         params: {
-          i: 'tt3896198',
-          apikey: '72d02239',
+          apikey: API_KEY,
           s: searchString,
           page: page,
         },
       })
       .then((resp) => {
-        dispatch(setSearchString(searchString));
-        dispatch(movieResults(resp.data.Search, resp.data.totalResults));
+        dispatch(getMoviesSuccess(resp.data.Search, resp.data.totalResults));
+      })
+      .catch((e) => {
+        dispatch(getMoviesFailure(e));
       });
   };
 };
