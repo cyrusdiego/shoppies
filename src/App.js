@@ -1,23 +1,18 @@
 import {
   CssBaseline,
   Grid,
+  Snackbar,
   ThemeProvider,
   Typography,
-  Snackbar,
-  IconButton,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import { Alert } from '@material-ui/lab';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MoviePage } from './components/MoviePage';
+import { NominationsPage } from './components/NominationsPage';
 import SearchBar from './components/SearchBar';
-import {
-  addNomination,
-  getMoviesRequest,
-  removeNomination,
-} from './redux/actions';
+import { getMoviesRequest } from './redux/actions';
 import { theme, useStyles } from './styles';
-import React, { useState, useEffect } from 'react';
 
 export const App = () => {
   const showNotification = useSelector(
@@ -54,14 +49,15 @@ export const App = () => {
         >
           <Grid item container xs={6} alignItems='center' spacing={2}>
             <Grid item xs={12}>
-              <Typography className={classes.header}>The Shoppies</Typography>
+              <Grid item direction='column'>
+                <Typography className={classes.header}>The Shoppies</Typography>
+                <NominationsPage />
+              </Grid>
               <SearchBar onSearch={onSearch} />
             </Grid>
           </Grid>
-          <Grid item container xs={12}>
-            <Grid item>
-              <MoviePage />
-            </Grid>
+          <Grid item xs={12} alignItems='center' justify='center'>
+            <MoviePage />
           </Grid>
         </Grid>
       </div>
