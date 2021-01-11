@@ -1,4 +1,4 @@
-import { Paper, Grid, Button, Typography } from '@material-ui/core';
+import { Button, Grid, Paper, Typography } from '@material-ui/core';
 import { useStyles } from '../styles';
 
 export const Movie = ({ movie, buttonText, onClick, isVisible }) => {
