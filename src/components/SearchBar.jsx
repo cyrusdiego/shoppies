@@ -1,18 +1,20 @@
-import { Paper, TextField } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { Box, TextField } from '@material-ui/core';
+import { useStyles } from '../styles';
 
-const SearchBar = (props) => {
-  const dispatch = useDispatch();
+const SearchBar = ({ onSearch }) => {
+  const classes = useStyles();
   return (
-    <Paper>
+    <Box className={classes.searchBar}>
       <TextField
-        id='standard-basic'
-        label='Search Movies...'
+        id='search'
+        helperText='Search Movie titles...'
+        autoComplete='off'
+        fullWidth
         onChange={(e) => {
-          dispatch(props.search(e.target.value.trim(), 1));
+          onSearch(e.target.value.trim(), 1);
         }}
       />
-    </Paper>
+    </Box>
   );
 };
 
