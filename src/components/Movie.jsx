@@ -24,6 +24,7 @@ export const Movie = ({ movie, buttonText, onClick, isDisabled }) => {
       >
         <Grid item className={classes.imageContainer}>
           <img
+            style={{ display: isLoading ? 'none' : 'block' }}
             className={classes.image}
             alt=''
             src={movie.Poster}
