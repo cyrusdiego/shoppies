@@ -12,7 +12,6 @@ export const MoviePage = () => {
   const searchString = useSelector((state) => state.searchString);
   const totalPage = useSelector((state) => Math.ceil(state.total / 10));
   const error = useSelector((state) => state.error);
-  const isLoading = useSelector((state) => state.isLoading);
   const movieRows = splitToChunks(movies, 5);
   const dispatch = useDispatch();
 

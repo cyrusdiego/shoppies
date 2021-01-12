@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { App } from './App';
 import { Provider } from 'react-redux';
-import { reducer } from './redux/reducers';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { App } from './App';
+import './index.css';
+import { reducer } from './redux/reducers';
 
 const middleware = [thunk];
 
