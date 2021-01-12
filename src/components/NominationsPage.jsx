@@ -1,12 +1,4 @@
-import {
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  Typography,
-  Grid,
-  Box,
-} from '@material-ui/core';
+import { Button, Drawer, List, ListItem, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeNomination } from '../redux/actions';
@@ -40,11 +32,11 @@ export const NominationsPage = () => {
         classes={{ paper: classes.drawer }}
       >
         <List>
-          <Typography align='center' className={classes.subheader}>
-            My Nominations
-          </Typography>
           {nominations && nominations.length > 0 ? (
             <React.Fragment>
+              <Typography align='center' className={classes.subheader}>
+                My Nominations
+              </Typography>
               {nominations.map((movie, i) => (
                 <ListItem>
                   <Movie
@@ -59,9 +51,7 @@ export const NominationsPage = () => {
               ))}
             </React.Fragment>
           ) : (
-            <ListItem>
-              <Typography variant='subtitle1'>No Nominations</Typography>
-            </ListItem>
+            <Typography align='center'>No Nominations</Typography>
           )}
         </List>
       </Drawer>

@@ -24,6 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     height: '100%',
     width: '100%',
+    background: theme.palette.secondary.main,
   },
   imageContainer: {
     width: 128,
@@ -41,20 +42,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: '10vw',
+    background: theme.palette.primary.main,
   },
 }));
 
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#000000',
+      main: '#84a98c',
     },
     secondary: {
-      // This is green.A700 as hex.
-      main: '#11cb5f',
+      main: '#edf6f9',
     },
     background: {
-      default: '#64943E',
+      default: '#83c5be',
     },
   },
 });
