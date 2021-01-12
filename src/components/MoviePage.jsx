@@ -28,6 +28,9 @@ export const MoviePage = () => {
 
   const MovieRow = ({ row }) => {
     const nominations = useSelector((state) => state.nominations);
+    const atMaxNominations = useSelector(
+      (state) => state.nominations.length === 5
+    );
 
     return (
       <React.Fragment>
@@ -39,7 +42,9 @@ export const MoviePage = () => {
               onClick={(movie) => {
                 dispatch(addNomination(movie));
               }}
-              isVisible={(movie) => !nominations.includes(movie)}
+              isVisible={(movie) =>
+                !atMaxNominations && !nominations.includes(movie)
+              }
             />
           </Grid>
         ))}

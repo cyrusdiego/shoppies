@@ -23,9 +23,9 @@ export const Movie = ({ movie, buttonText, onClick, isVisible }) => {
               </Typography>
             </Grid>
             <Grid item>
-              {isVisible(movie) ? (
+              {isVisible(movie) && (
                 <Button onClick={(_) => onClick(movie)}>{buttonText}</Button>
-              ) : null}
+              )}
             </Grid>
           </Grid>
         </Grid>
