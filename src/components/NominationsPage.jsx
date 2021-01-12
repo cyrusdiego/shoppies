@@ -1,4 +1,4 @@
-import { Button, Drawer, List, ListItem } from '@material-ui/core';
+import { Button, Drawer, List, ListItem, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeNomination } from '../redux/actions';
@@ -18,12 +18,12 @@ export const NominationsPage = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Button onClick={toggleDrawer}>My Nominations</Button>
       <Drawer anchor={'right'} open={isOpen} onClose={toggleDrawer}>
         <List>
           {nominations && nominations.length > 0 ? (
-            <div>
+            <React.Fragment>
               {nominations.map((movie, i) => (
                 <ListItem key={i}>
                   <Movie
@@ -36,12 +36,14 @@ export const NominationsPage = () => {
                   />
                 </ListItem>
               ))}
-            </div>
+            </React.Fragment>
           ) : (
-            <ListItem>No Nominations</ListItem>
+            <ListItem>
+              <Typography variant='subtitle1'>No Nominations</Typography>
+            </ListItem>
           )}
         </List>
       </Drawer>
-    </div>
+    </React.Fragment>
   );
 };
