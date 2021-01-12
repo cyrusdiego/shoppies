@@ -45,7 +45,7 @@ export const MoviePage = () => {
                 <MovieRow row={row} />
               </Grid>
             ))}
-            <Grid item container justify='center' alignItems='center'>
+            <Grid item container justify='center'>
               <Pagination
                 count={totalPage}
                 page={page}

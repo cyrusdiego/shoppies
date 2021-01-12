@@ -15,13 +15,15 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 32,
     color: theme.palette.primary,
   },
-  movieCardRoot: {
-    flexGrow: 1,
+  subheader: {
+    fontWeight: 100,
+    fontSize: 20,
+    color: theme.palette.primary,
   },
   movieCard: {
     padding: theme.spacing(2),
-    margin: 'auto',
-    maxWidth: 500,
+    height: '100%',
+    width: '100%',
   },
   imageContainer: {
     width: 128,
@@ -32,6 +34,13 @@ export const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+  },
+  skeleton: {
+    width: '100%',
+    height: '100%',
+  },
+  drawer: {
+    width: '10vw',
   },
 }));
 

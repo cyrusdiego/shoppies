@@ -21,8 +21,8 @@ export const MovieRow = ({ row }) => {
             onClick={(movie) => {
               dispatch(addNomination(movie));
             }}
-            isVisible={(movie) =>
-              !atMaxNominations && !nominations.includes(movie)
+            isDisabled={(movie) =>
+              atMaxNominations || nominations.includes(movie)
             }
           />
         </Grid>
