@@ -11,7 +11,7 @@ const initialState = {
   nominations: [],
   searchString: '',
   total: -1,
-  error: {},
+  error: false,
   isLoading: false,
 };
 
@@ -22,7 +22,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         movies: action.payload.movies,
         total: action.payload.total,
-        error: {},
+        error: false,
         isLoading: false,
       };
 
@@ -35,7 +35,7 @@ export const reducer = (state = initialState, action) => {
       };
 
     case GET_MOVIES_FAILURE:
-      return { ...state, error: action.payload, isLoading: false };
+      return { ...state, error: true, isLoading: false };
 
     case ADD_NOMINATION:
       return {

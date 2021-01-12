@@ -32,9 +32,8 @@ const getMoviesSuccess = (results, totalResults) => ({
   },
 });
 
-const getMoviesFailure = (error) => ({
+const getMoviesFailure = () => ({
   type: GET_MOVIES_FAILURE,
-  payload: error,
 });
 
 export const searchMovieAsync = (searchString, page) => {
@@ -50,8 +49,8 @@ export const searchMovieAsync = (searchString, page) => {
       .then((resp) => {
         dispatch(getMoviesSuccess(resp.data.Search, resp.data.totalResults));
       })
-      .catch((e) => {
-        dispatch(getMoviesFailure(e));
+      .catch(() => {
+        dispatch(getMoviesFailure());
       });
   };
 };
