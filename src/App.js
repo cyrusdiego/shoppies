@@ -47,12 +47,10 @@ export const App = () => {
           justify='center'
           style={{ minHeight: '100vh' }}
         >
-          <Grid item container xs={6} alignItems='center' spacing={2}>
-            <Grid item xs={12}>
-              <Grid item direction='column'>
-                <Typography className={classes.header}>The Shoppies</Typography>
-                <NominationsPage />
-              </Grid>
+          <Typography className={classes.header}>The Shoppies</Typography>
+          <NominationsPage />
+          <Grid item container alignItems='center' xs={6}>
+            <Grid item xs>
               <SearchBar onSearch={onSearch} />
             </Grid>
           </Grid>
